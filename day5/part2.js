@@ -97,13 +97,13 @@ const filterUpdates = (rules, updates) => {
                 const isPre = foundRules[k][0] === update[j];
                 if (isPre && isPostNumberBeforeSelf(update, j, foundRules[k][1])) {
                     isValid = false;
-                    console.log("#### 1:", update, j, foundRules[k]);
+                    // console.log("#### 1:", update, j, foundRules[k]);
                     const modifiedUpdate = moveAfterSelf(update, j, update.indexOf(foundRules[k][0]), rules);
                     modifiedUpdates.push(modifiedUpdate);
                     break;
                 } else if (!isPre && isPreNumberAfterSelf(update, j, foundRules[k][0])) {
                     isValid = false;
-                    console.log("#### 2:", update, j, foundRules[k]);
+                    // console.log("#### 2:", update, j, foundRules[k]);
                     const modifiedUpdate = moveBeforeSelf(update, j, update.indexOf(foundRules[k][1]), rules);
                     modifiedUpdates.push(modifiedUpdate);
                     break;
