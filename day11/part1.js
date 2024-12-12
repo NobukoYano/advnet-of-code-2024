@@ -41,8 +41,7 @@ const calculate = (input) => {
     return result.length;
 };
 
-
-
+// @ts-ignore
 const fs = require("fs");
 const file = fs.readFileSync("./day11/input.txt").toString('utf-8');
 const input = file.split(" ").map((char) => Number(char));

@@ -1,44 +1,26 @@
 // @ts-check
 
-let count = 0;
-
 /**
- * 
  * @param {number} num
  * @param {number} step
+ * @returns {number}
  */
 const applyRules = (num, step) => {
-    const len = num.toString().length;
-    
     if (step === 74) {
-        if (num === 0) {
-            // console.log("###### last", step, ":", num);
-            count++;
-        } 
-        
-        else if (len % 2 === 0) {
-            // console.log("###### last", step, ":", num);
-            count += 2;
-            
-        } else {
-            // console.log("###### last", step, ":", num);
-            count++;
-        }
-        
-    } else {
-        if (num === 0) {
-            applyRules(1, step + 1);
-        }
-        else if (len % 2 === 0) {
-            // split into two
-            const pre = Number(num.toString().slice(0, len / 2));
-            applyRules(pre, step + 1);;
-            const post = Number(num.toString().slice(len / 2));
-            applyRules(post, step + 1);;
+        const len = num.toString().length;
+        return (num === 0 || len % 2 !== 0) ? 1 : 2;
+    }
 
-        } else {
-            applyRules(num * 2024, step + 1);
-        }
+    const len = num.toString().length;
+
+    if (num === 0) {
+        return applyRules(1, step + 1);
+    } else if (len % 2 === 0) {
+        const pre = Number(num.toString().slice(0, len / 2));
+        const post = Number(num.toString().slice(len / 2));
+        return applyRules(pre, step + 1) + applyRules(post, step + 1);
+    } else {
+        return applyRules(num * 2024, step + 1);
     }
 }
 
@@ -48,16 +30,14 @@ const applyRules = (num, step) => {
  * @return {number}
  */
 const calculate = (input) => {
-    
+    let count = 0;
     for (let j = 0; j < input.length; j++) {
-        applyRules(input[j], 0);
-        }
-
+        count += applyRules(input[j], 0);
+    }
     return count;
 };
 
-
-
+// @ts-ignore
 const fs = require("fs");
 const file = fs.readFileSync("./day11/input.txt").toString('utf-8');
 const input = file.split(" ").map((char) => Number(char));
